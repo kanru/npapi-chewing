@@ -8,31 +8,12 @@
 #include <npfunctions.h>
 #include <npruntime.h>
 
-#define ARRAY_LENGTH(a) (sizeof(a)/sizeof(a[0]))
+#include "np_chewing_class.h"
 
 static const char* sPluginName = "Chewing IME";
 static const char* sPluginDescription = "Chewing Input Method Editor";
 static const char* sMimeDescription = "application/x-chewing-ime::Chewing IME";
 static const NPNetscapeFuncs* sNPNFuncs;
-
-static const NPUTF8* sPluginMethodSymbols[] = {
-  "handleDefault",
-  "handleEnter"
-};
-static NPIdentifier sPluginMethodInternedSymbols[ARRAY_LENGTH(sPluginMethodSymbols)];
-
-static void
-intern_method_symbols()
-{
-  NPN_GetStringIdentifiers(sPluginMethodSymbols,
-                           ARRAY_LENGTH(sPluginMethodSymbols),
-                           sPluginMethodInternedSymbols);
-}
-
-static void
-setup_npclass()
-{
-}
 
 const char*
 NP_GetMIMEDescription(void)
@@ -45,8 +26,7 @@ NP_Initialize(NPNetscapeFuncs* aNPNFuncs, NPPluginFuncs* aNPPFuncs)
 {
   sNPNFuncs = aNPNFuncs;
 
-  intern_method_symbols();
-  setup_npclass();
+  NPChewingInitClass(aNPNFuncs);
 
   aNPPFuncs->newp     = NPP_New;
   aNPPFuncs->destroy  = NPP_Destroy;
