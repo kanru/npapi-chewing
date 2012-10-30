@@ -30,7 +30,12 @@ NPChewingInvoke(NPObject *npobj, NPIdentifier name,
                 const NPVariant *args, uint32_t argCount,
                 NPVariant *result)
 {
-  return true;
+  if (name == sMethodInternedSymbols[0]) {
+    result->type = NPVariantType_Int32;
+    result->value.intValue = 42;
+    return true;
+  }
+  return false;
 }
 
 bool
@@ -43,7 +48,7 @@ NPChewingConstruct(NPObject *npobj,
 }
 
 void
-NPChewingInitClass(NPNetscapeFuncs* aBrowser)
+NPChewingInitClass(const NPNetscapeFuncs* aBrowser)
 {
   aBrowser->getstringidentifiers(sMethodSymbols,
                                  ARRAY_LENGTH(sMethodSymbols),
@@ -53,4 +58,10 @@ NPChewingInitClass(NPNetscapeFuncs* aBrowser)
   sChewingClass.hasMethod = NPChewingHasMethod;
   sChewingClass.invoke = NPChewingInvoke;
   sChewingClass.construct = NPChewingConstruct;
+}
+
+NPObject*
+NPChewingCreateInstance(const NPNetscapeFuncs* aBrowser, NPP instance)
+{
+  return aBrowser->createobject(instance, &sChewingClass);
 }

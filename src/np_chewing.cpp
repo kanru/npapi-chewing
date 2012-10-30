@@ -13,7 +13,7 @@
 static const char* sPluginName = "Chewing IME";
 static const char* sPluginDescription = "Chewing Input Method Editor";
 static const char* sMimeDescription = "application/x-chewing-ime::Chewing IME";
-static const NPNetscapeFuncs* sNPNFuncs;
+static const NPNetscapeFuncs* sBrowser;
 
 const char*
 NP_GetMIMEDescription(void)
@@ -24,12 +24,13 @@ NP_GetMIMEDescription(void)
 NPError
 NP_Initialize(NPNetscapeFuncs* aNPNFuncs, NPPluginFuncs* aNPPFuncs)
 {
-  sNPNFuncs = aNPNFuncs;
+  sBrowser = aNPNFuncs;
 
   NPChewingInitClass(aNPNFuncs);
 
   aNPPFuncs->newp     = NPP_New;
   aNPPFuncs->destroy  = NPP_Destroy;
+  aNPPFuncs->getvalue = NPP_GetValue;
   aNPPFuncs->setvalue = NPP_SetValue;
 
   return NPERR_NO_ERROR;
@@ -46,6 +47,7 @@ NPP_New(NPMIMEType pluginType, NPP instance,
         uint16_t mode, int16_t argc, char* argn[],
         char* argv[], NPSavedData* saved)
 {
+  instance->pdata = NPChewingCreateInstance(sBrowser, instance);
   return NPERR_NO_ERROR;
 }
 
@@ -67,6 +69,24 @@ NP_GetValue(void* future, NPPVariable aVariable, void* aValue)
       break;
     default:
       return NPERR_INVALID_PARAM;
+      break;
+  }
+  return NPERR_NO_ERROR;
+}
+
+NPError
+NPP_GetValue(NPP instance, NPPVariable aVariable, void *value)
+{
+  switch (aVariable) {
+    case NPPVpluginScriptableNPObject:
+    {
+      NPObject* object = (NPObject*)instance->pdata;
+      sBrowser->retainobject(object);
+      *((NPObject**)value) = object;
+      break;
+    }
+    default:
+      return NPERR_GENERIC_ERROR;
       break;
   }
   return NPERR_NO_ERROR;

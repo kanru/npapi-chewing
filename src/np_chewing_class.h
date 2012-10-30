@@ -7,8 +7,9 @@
 #ifndef NP_CHEWING_CLASS_H
 #define NP_CHEWING_CLASS_H
 
-typedef struct _NPNetscapeFuncs NPNetscapeFuncs;
+#include <npapi.h>
 
-void NPChewingInitClass(NPNetscapeFuncs* aBrowser);
+void NPChewingInitClass(const NPNetscapeFuncs* aBrowser);
+NPObject* NPChewingCreateInstance(const NPNetscapeFuncs* aBrowser, NPP instance);
 
 #endif
