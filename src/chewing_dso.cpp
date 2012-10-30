@@ -19,13 +19,13 @@ chewing_dso_open(struct chewing_pfns* pfns)
   if (!h)
     return false;
 
-#define LOAD_SYMBOL(sym)				\
-  do {							\
-    pfns->sym = (__typeof__ pfns->sym)dlsym(h, #sym);	\
-    if (!pfns->sym) {					\
-      dlclose(h);					\
-      return false;					\
-    }							\
+#define LOAD_SYMBOL(sym)                                \
+  do {                                                  \
+    pfns->sym = (__typeof__ pfns->sym)dlsym(h, #sym);   \
+    if (!pfns->sym) {                                   \
+      dlclose(h);                                       \
+      return false;                                     \
+    }                                                   \
   } while(0)
 
   LOAD_SYMBOL(chewing_new);
