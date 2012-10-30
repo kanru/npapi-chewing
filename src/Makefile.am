@@ -1,5 +1,7 @@
 lib_LTLIBRARIES = npchewing.la
 npchewing_la_SOURCES = \
+  chewing_dso.cpp \
+  chewing_dso.h \
   np_chewing.cpp \
   np_chewing_class.cpp \
   np_chewing_class.h \
