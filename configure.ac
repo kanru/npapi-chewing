@@ -26,5 +26,6 @@ AC_LANG([C++])
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile
+                 npapi/Makefile
                  src/Makefile])
 AC_OUTPUT
