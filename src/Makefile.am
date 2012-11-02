@@ -10,5 +10,5 @@ npchewing_la_CPPFLAGS = \
   -I$(top_srcdir)/npapi \
   -DXP_UNIX=1 \
   $(NULL)
-npchewing_la_CXXFLAGS = -fno-rtti -fno-exceptions
+npchewing_la_CXXFLAGS = -fno-rtti -fno-exceptions -fvisibility=hidden
 npchewing_la_LDFLAGS = -module -release $(VERSION)

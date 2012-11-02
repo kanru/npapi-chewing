@@ -10,6 +10,7 @@
 #include <npapi.h>
 
 void NPChewingInitClass(const NPNetscapeFuncs* aBrowser);
+void NPChewingShutdownClass();
 NPObject* NPChewingCreateInstance(const NPNetscapeFuncs* aBrowser, NPP instance);
 
 #endif

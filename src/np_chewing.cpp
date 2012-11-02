@@ -39,6 +39,7 @@ NP_Initialize(NPNetscapeFuncs* aNPNFuncs, NPPluginFuncs* aNPPFuncs)
 NPError
 NP_Shutdown(void)
 {
+  NPChewingShutdownClass();
   return NPERR_NO_ERROR;
 }
 
