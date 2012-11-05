@@ -30,6 +30,7 @@ chewing_dso_open(struct chewing_pfns* pfns)
 
   LOAD_SYMBOL(chewing_new);
   LOAD_SYMBOL(chewing_delete);
+  LOAD_SYMBOL(chewing_free);
   LOAD_SYMBOL(chewing_handle_Default);
   LOAD_SYMBOL(chewing_handle_Enter);
   LOAD_SYMBOL(chewing_handle_Down);
@@ -46,6 +47,8 @@ chewing_dso_open(struct chewing_pfns* pfns)
   LOAD_SYMBOL(chewing_cand_Enumerate);
   LOAD_SYMBOL(chewing_cand_hasNext);
   LOAD_SYMBOL(chewing_cand_String);
+  LOAD_SYMBOL(chewing_set_candPerPage);
+  LOAD_SYMBOL(chewing_set_maxChiSymbolLen);
 }
 
 void

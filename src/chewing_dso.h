@@ -13,6 +13,7 @@ struct chewing_pfns {
   void* _handle;
   ChewingContext* (*chewing_new)();
   void (*chewing_delete)(ChewingContext* ctx);
+  void (*chewing_free)(void* ptr);
 
   int (*chewing_handle_Default)(ChewingContext* ctx, int key);
   int (*chewing_handle_Enter)(ChewingContext* ctx);
@@ -32,6 +33,9 @@ struct chewing_pfns {
   void (*chewing_cand_Enumerate)(ChewingContext* ctx);
   int (*chewing_cand_hasNext)(ChewingContext* ctx);
   char* (*chewing_cand_String)(ChewingContext* ctx);
+
+  int (*chewing_set_candPerPage)(ChewingContext* ctx, int n);
+  int (*chewing_set_maxChiSymbolLen)(ChewingContext* ctx, int n);
 };
 
 bool chewing_dso_open(struct chewing_pfns* pfns);
