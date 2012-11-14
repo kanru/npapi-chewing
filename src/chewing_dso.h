@@ -29,13 +29,16 @@ struct chewing_pfns {
   char* (*chewing_zuin_String)(ChewingContext* ctx, int* zuin_count);
 
   int (*chewing_cand_TotalPage)(ChewingContext* ctx);
+  int (*chewing_cand_TotalChoice)(ChewingContext* ctx);
   int (*chewing_cand_CurrentPage)(ChewingContext* ctx);
   void (*chewing_cand_Enumerate)(ChewingContext* ctx);
   int (*chewing_cand_hasNext)(ChewingContext* ctx);
   char* (*chewing_cand_String)(ChewingContext* ctx);
+  int  (*chewing_cand_Select)(ChewingContext* ctx, int n);
 
   int (*chewing_set_candPerPage)(ChewingContext* ctx, int n);
   int (*chewing_set_maxChiSymbolLen)(ChewingContext* ctx, int n);
+  int (*chewing_set_phraseChoiceRearward)(ChewingContext* ctx, int n);
 };
 
 bool chewing_dso_open(struct chewing_pfns* pfns);

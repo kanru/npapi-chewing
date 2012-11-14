@@ -43,12 +43,15 @@ chewing_dso_open(struct chewing_pfns* pfns)
   LOAD_SYMBOL(chewing_zuin_Check);
   LOAD_SYMBOL(chewing_zuin_String);
   LOAD_SYMBOL(chewing_cand_TotalPage);
+  LOAD_SYMBOL(chewing_cand_TotalChoice);
   LOAD_SYMBOL(chewing_cand_CurrentPage);
   LOAD_SYMBOL(chewing_cand_Enumerate);
   LOAD_SYMBOL(chewing_cand_hasNext);
   LOAD_SYMBOL(chewing_cand_String);
+  LOAD_SYMBOL(chewing_cand_Select);
   LOAD_SYMBOL(chewing_set_candPerPage);
   LOAD_SYMBOL(chewing_set_maxChiSymbolLen);
+  LOAD_SYMBOL(chewing_set_phraseChoiceRearward);
 }
 
 void
