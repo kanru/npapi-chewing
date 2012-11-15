@@ -8,7 +8,7 @@
 
 #include "chewing_dso.h"
 
-#define LIBCHEWING_DSO "libchewing.so.3.0.1"
+#define LIBCHEWING_DSO "/system/b2g/plugins/libchewing.so.3.0.1"
 
 bool
 chewing_dso_open(struct chewing_pfns* pfns)

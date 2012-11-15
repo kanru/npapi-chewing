@@ -61,12 +61,18 @@ NPChewingAllocate(NPP instance, NPClass* aClass)
   NPChewingObject* object = (NPChewingObject*)npn_malloc(sizeof(NPChewingObject));
   if (object) {
     memset(object, 0, sizeof(NPChewingObject));
+    setenv("CHEWING_PATH", "/data/local/libchewing", 1);
+    setenv("CHEWING_USER_PATH", "/data/local/libchewing", 1);
     object->npp = instance;
+    fprintf(stderr, "try object new\n");
     object->ctx = chewing.chewing_new();
+    fprintf(stderr, "object new success\n");
     if (object->ctx) {
+      fprintf(stderr, "chewing ctx %p\n", object->ctx);
       chewing.chewing_set_candPerPage(object->ctx, 9);
       chewing.chewing_set_maxChiSymbolLen(object->ctx, 16);
       chewing.chewing_set_phraseChoiceRearward(object->ctx, 1);
+      fprintf(stderr, "chewing ctx %p\n", object->ctx);
     }
   }
   return object;
@@ -181,6 +187,7 @@ NPChewingInvoke(NPObject *npobj, NPIdentifier name,
       int count = 0;
       char* str = chewing.chewing_zuin_String(obj->ctx, &count);
       char* r = (char*)npn_malloc(strlen(str)+1);
+      fprintf(stderr, "zhuyin_string %s\n", str);
       strcpy(r, str);
       chewing.chewing_free(str);
       STRINGZ_TO_NPVARIANT(r, *result);
@@ -212,11 +219,13 @@ NPChewingInvoke(NPObject *npobj, NPIdentifier name,
       // Push all candidates to array
       NPIdentifier push = npn_getStringIdentifier("push");
       chewing.chewing_cand_Enumerate(obj->ctx);
+      fprintf(stderr, "get candidates\n");
       bool hasCandidates = false;
       while (chewing.chewing_cand_hasNext(obj->ctx)) {
         hasCandidates = true;
         char* str = chewing.chewing_cand_String(obj->ctx);
         char* r = (char*)npn_malloc(strlen(str)+1);
+        fprintf(stderr, "push candidates %s\n", str);
         strcpy(r, str);
         chewing.chewing_free(str);
         NPVariant item;
